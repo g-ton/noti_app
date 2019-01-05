@@ -14,7 +14,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'WGcASQt8Su3rWjy7ICJANsgSOj0E685Z',
+            'cookieValidationKey' => 'MJA2lRm8lr_JymDic7fdjXifHwZhRkWk',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -51,7 +51,22 @@ $config = [
             ],
         ],
         */
-    ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            // uncomment if you want to cache RBAC items hierarchy
+            // 'cache' => 'cache',
+        // ...
+        ],
+        'urlManager' => [
+           'class' => 'yii\web\UrlManager',
+           'enablePrettyUrl' => true,
+           'showScriptName' => false,
+           'rules' => [
+               '<alias:\w+>' => 'login/<alias>',
+               ['class'=>'yii\rest\UrlRule', 'controller'=>'RestController']
+           ],
+       ],
+    ],//componentes
     'params' => $params,
 ];
 
