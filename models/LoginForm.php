@@ -15,6 +15,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
+    public $correo;
     public $rememberMe = true;
 
     private $_user = false;
@@ -27,7 +28,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password', 'correo'], 'required', 'message'=>'El campo {attribute} es requerido.'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -48,7 +49,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Usuario o Contraseña Incorrectos');
             }
         }
     }
@@ -73,9 +74,22 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user= ClienteUsuarioLogin::find()
+            ->joinWith('cliente')
+            ->where(['Cliente.correo'=> $this->correo, 'Cliente_Usuario.username'=> $this->username])
+            ->one();
         }
 
         return $this->_user;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Usuario',
+            'password' => 'Contraseña',
+            'correo' => 'Correo Electrónico',
+            'rememberMe' => 'Recordar',
+        ];
     }
 }

@@ -5,12 +5,15 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'es',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'name' => 'NotiApp',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'timeZone' => 'America/Mexico_City',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -20,9 +23,15 @@ $config = [
             'class' => 'yii\caching\ApcCache',
             'useApcu' => true,
         ],
-        'user' => [
+        /*'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+        ],*/
+        'user' => [
+            'identityClass' => 'app\models\ClienteUsuarioLogin',
+            'enableAutoLogin' => false,
+            #Aquí se coloca el action por default para el login
+            'loginUrl' => [ 'login/login' ],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -34,7 +43,7 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-        'log' => [
+        /*'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
@@ -42,7 +51,7 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ],
+        ],*/
         'db' => $db,
         /*
         'urlManager' => [
