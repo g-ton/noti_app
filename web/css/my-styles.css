@@ -1,0 +1,4 @@
+/*Se setea una fuente diferente a la original de bootstrap*/
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}

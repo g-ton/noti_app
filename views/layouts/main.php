@@ -31,7 +31,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     if ($session->isActive){
-        if(isset($session['rol_usuario']) && $session['rol_usuario']== 'superadmin'){
+        if( (isset($session['rol_usuario']) && $session['rol_usuario']== 'superadmin') && Yii::$app->controller->action->id != 'error' ){
             NavBar::begin([
                 'brandLabel' => Yii::$app->name,
                 'brandUrl' => Yii::$app->homeUrl,
@@ -66,12 +66,12 @@ AppAsset::register($this);
                 ],
             ]);
             NavBar::end();
-        } elseif(isset($session['rol_usuario']) && $session['rol_usuario']!= 'superadmin'){
+        } elseif( (isset($session['rol_usuario']) && $session['rol_usuario']!= 'superadmin') && Yii::$app->controller->action->id != 'error' ){
             NavBar::begin([
                 'brandLabel' => Yii::$app->name,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar navbar-fixed-top',
+                    'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
             echo Nav::widget([
