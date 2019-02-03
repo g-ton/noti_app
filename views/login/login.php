@@ -5,6 +5,7 @@
 /* @var $model app\models\LoginForm */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
@@ -33,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::a('Regístrate', Url::to(['cliente/create']), ['class'=> 'btn btn-success', 'title'=> '¿Aún no tienes cuenta?, regístrate de forma fácil y rápida aquí']) ?>
             </div>
         </div>
 

@@ -39,6 +39,7 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['correo', 'unique', 'filter' => ['estatus'=> 1], 'message'=> 'El {attribute} ya ha sido utilizado para otro Cliente'],
             [['razon_social', 'id_giro', 'id_pais', 'id_estado', 'id_municipio', 'calle_colonia', 'codigo_postal', 'celular', 'telefono', 'correo'], 'required'],
             [['id_giro', 'id_pais', 'id_estado', 'id_municipio', 'estatus', 'bloqueado'], 'integer'],
             [['razon_social', 'rfc', 'calle_colonia', 'correo', 'cedula_profesional'], 'string', 'max' => 250],
@@ -54,17 +55,17 @@ class Cliente extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'razon_social' => 'Razon Social',
+            'razon_social' => 'Razón Social ó Nombre Comercial',
             'rfc' => 'Rfc',
             'id_giro' => 'Giro',
-            'id_pais' => 'Pais',
+            'id_pais' => 'País',
             'id_estado' => 'Estado',
             'id_municipio' => 'Municipio',
-            'calle_colonia' => 'Calle/Colonia',
-            'codigo_postal' => 'Codigo Postal',
+            'calle_colonia' => 'Calle y Colonia',
+            'codigo_postal' => 'Código Postal',
             'celular' => 'Celular',
-            'telefono' => 'Telefono',
-            'correo' => 'Correo',
+            'telefono' => 'Teléfono',
+            'correo' => 'Correo Electrónico',
             'cedula_profesional' => 'Cédula Profesional',
             'estatus' => 'Estatus',
             'bloqueado' => 'Bloqueado',

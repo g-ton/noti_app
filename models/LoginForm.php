@@ -28,11 +28,12 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password', 'correo'], 'required', 'message'=>'El campo {attribute} es requerido.'],
+            [['username', 'password'], 'required', 'message'=>'El campo {attribute} es requerido.'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['correo', 'validateCliente'],
         ];
     }
 
@@ -50,6 +51,20 @@ class LoginForm extends Model
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Usuario o Contraseña Incorrectos');
+            }
+        }
+    }
+
+    public function validateCliente($attribute, $params)
+    {
+        $user = $this->getUser();
+
+        if(isset($user->cliente)){
+            $cliente= $user->cliente;
+            $fecha_actual= Date('Y-m-d');
+
+            if ($cliente->bloqueado === 1) {
+                $this->addError($attribute, 'El Cliente está Bloqueado (Por suscripción vencida ó Baja temporal de la cuenta), si piensas que es un error en el sistema favor de contactarnos');
             }
         }
     }
@@ -76,7 +91,7 @@ class LoginForm extends Model
         if ($this->_user === false) {
             $this->_user= ClienteUsuarioLogin::find()
             ->joinWith('cliente')
-            ->where(['Cliente.correo'=> $this->correo, 'Cliente_Usuario.username'=> $this->username])
+            ->where(['Cliente.correo'=> $this->correo, 'Cliente_Usuario.username'=> $this->username, 'Cliente.estatus'=> 1, 'Cliente_Usuario.estatus'=> 1])
             ->one();
         }
 

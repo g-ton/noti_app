@@ -9,10 +9,14 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\web\View;
 
 $session = Yii::$app->session;
 
 AppAsset::register($this);
+
+#Variable disponible a lo largo del sitio, contiene la url relativa del proyecto para ser usada en los js
+$this->registerJs('var url_base="'.Yii::$app->HomeUrl.'";', View::POS_HEAD);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
