@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ClienteUsuarioLogin;
+use app\models\SuscriptorUsuarioLogin;
 use app\utilidades\Utilidades;
 
 class LoginController extends \yii\web\Controller
@@ -61,11 +61,11 @@ class LoginController extends \yii\web\Controller
             }
 
             #Variables de sesión de utilidad a lo largo del sitio - start
-            $session->set('id_cliente', $model->getUser()->cliente->id); 
+            $session->set('id_suscriptor', $model->getUser()->suscriptor->id); 
             $session->set('rol_usuario', $rol_usuario); 
             #Variables de sesión de utilidad a lo largo del sitio - end
 
-            $usuario = ClienteUsuarioLogin::findOne(Yii::$app->user->getId());
+            $usuario = SuscriptorUsuarioLogin::findOne(Yii::$app->user->getId());
             $usuario->ultimo_acceso= Date('Y-m-d h:i:s');
             $usuario->save();
 

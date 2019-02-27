@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m190113_213539_tabla_insert_Cliente_Superadmin
+ * Class m190113_213539_tabla_insert_Suscriptor_Superadmin
  */
-class m190113_213539_tabla_insert_Cliente_Superadmin extends Migration
+class m190113_213539_tabla_insert_Suscriptor_Superadmin extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->batchInsert('Cliente', ['razon_social','rfc','id_giro','id_pais','id_estado','id_municipio','calle_colonia','codigo_postal','celular','telefono','correo'], [
+        $this->batchInsert('Suscriptor', ['razon_social','rfc','id_giro','id_pais','id_estado','id_municipio','calle_colonia','codigo_postal','celular','telefono','correo'], [
             [
             'razon_social' => 'Colorado TI',
             'rfc' => 'HEML920615R17',
@@ -29,11 +29,11 @@ class m190113_213539_tabla_insert_Cliente_Superadmin extends Migration
 
         ]);
 
-        $this->batchInsert('Cliente_Usuario', ['id_cliente','username','password'], [
+        $this->batchInsert('Suscriptor_Usuario', ['id_suscriptor','username','password'], [
             [
-            'id_cliente' => 1,
+            'id_suscriptor' => 1,
             'username' => 'superadmin',
-            'password' => '7c4a8d09ca3762af61e59520943dc26494f8941b' #La clave está codificada en SHA1
+            'password' => '7c4a8d09ca3762af61e59520943dc26494f8941b' #La clave está codificada en SHA1 (es: 123456)
             ],
 
         ]);
@@ -52,23 +52,8 @@ class m190113_213539_tabla_insert_Cliente_Superadmin extends Migration
      */
     public function safeDown()
     {
-        echo "m190113_213539_tabla_insert_Cliente_Superadmin cannot be reverted.\n";
+        echo "m190113_213539_tabla_insert_Suscriptor_Superadmin cannot be reverted.\n";
 
         return false;
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m190113_213539_tabla_insert_Cliente_Superadmin cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

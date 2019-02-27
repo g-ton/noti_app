@@ -33,7 +33,7 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            ['correo', 'validateCliente'],
+            ['correo', 'validateSuscriptor'],
         ];
     }
 
@@ -55,16 +55,16 @@ class LoginForm extends Model
         }
     }
 
-    public function validateCliente($attribute, $params)
+    public function validateSuscriptor($attribute, $params)
     {
         $user = $this->getUser();
 
-        if(isset($user->cliente)){
-            $cliente= $user->cliente;
+        if(isset($user->suscriptor)){
+            $suscriptor= $user->suscriptor;
             $fecha_actual= Date('Y-m-d');
 
-            if ($cliente->bloqueado === 1) {
-                $this->addError($attribute, 'El Cliente está Bloqueado (Por suscripción vencida ó Baja temporal de la cuenta), si piensas que es un error en el sistema favor de contactarnos');
+            if ($suscriptor->bloqueado === 1) {
+                $this->addError($attribute, 'El Suscriptor está Bloqueado (Por cuenta vencida ó Baja temporal de ésta), si piensas que es un error en el sistema favor de contactarnos');
             }
         }
     }
@@ -89,9 +89,9 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user= ClienteUsuarioLogin::find()
-            ->joinWith('cliente')
-            ->where(['Cliente.correo'=> $this->correo, 'Cliente_Usuario.username'=> $this->username, 'Cliente.estatus'=> 1, 'Cliente_Usuario.estatus'=> 1])
+            $this->_user= SuscriptorUsuarioLogin::find()
+            ->joinWith('suscriptor')
+            ->where(['Suscriptor.correo'=> $this->correo, 'Suscriptor_Usuario.username'=> $this->username, 'Suscriptor.estatus'=> 1, 'Suscriptor_Usuario.estatus'=> 1])
             ->one();
         }
 

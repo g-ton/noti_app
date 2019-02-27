@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "Cliente".
+ * This is the model class for table "Suscriptor".
  *
  * @property int $id
  * @property string $razon_social
@@ -23,14 +23,15 @@ use Yii;
  * @property int $estatus 1= Activo, 0= Eliminado 
  * @property int $bloqueado 1= Bloqueado por pago, 0= Desbloqueado
  */
-class Cliente extends \yii\db\ActiveRecord
+class Suscriptor extends \yii\db\ActiveRecord
 {
+    public $imagenes;
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'Cliente';
+        return 'Suscriptor';
     }
 
     /**
@@ -39,7 +40,7 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['correo', 'unique', 'filter' => ['estatus'=> 1], 'message'=> 'El {attribute} ya ha sido utilizado para otro Cliente'],
+            ['correo', 'unique', 'filter' => ['estatus'=> 1], 'message'=> 'El {attribute} ya ha sido utilizado para otro Suscriptor'],
             [['razon_social', 'id_giro', 'id_pais', 'id_estado', 'id_municipio', 'calle_colonia', 'codigo_postal', 'celular', 'telefono', 'correo'], 'required'],
             [['id_giro', 'id_pais', 'id_estado', 'id_municipio', 'estatus', 'bloqueado'], 'integer'],
             [['razon_social', 'rfc', 'calle_colonia', 'correo', 'cedula_profesional'], 'string', 'max' => 250],
@@ -69,6 +70,7 @@ class Cliente extends \yii\db\ActiveRecord
             'cedula_profesional' => 'Cédula Profesional',
             'estatus' => 'Estatus',
             'bloqueado' => 'Bloqueado',
+            'imagenes' => 'imagenes',
         ];
     }
 }

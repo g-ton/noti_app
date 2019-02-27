@@ -4,14 +4,29 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
+$session = Yii::$app->session;
 ?>
 <div class="site-login">
+    <!-- Se pinta Alert Message si el Suscriptor es guardado correctamente -->
+    <?php if (Yii::$app->session->hasFlash('mensaje_registro_suscriptor') && isset($_GET['resultado']) && $_GET['resultado']): ?>
+        <div class="alert alert-success alert-dismissible">
+            <?= $session->getFlash('mensaje_registro_suscriptor') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (Yii::$app->session->hasFlash('mensaje_registro_suscriptor') && isset($_GET['resultado']) && !$_GET['resultado']): ?>
+        <div class="alert alert-warning alert-dismissible">
+            <?= $session->getFlash('mensaje_registro_suscriptor') ?>
+        </div>
+    <?php endif; ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Please fill out the following fields to login:</p>
@@ -34,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                <?= Html::a('Regístrate', Url::to(['cliente/create']), ['class'=> 'btn btn-success', 'title'=> '¿Aún no tienes cuenta?, regístrate de forma fácil y rápida aquí']) ?>
+                <?= Html::a('Regístrate', Url::to(['suscriptor/create']), ['class'=> 'btn btn-success', 'title'=> '¿Aún no tienes cuenta?, regístrate de forma fácil y rápida aquí']) ?>
             </div>
         </div>
 

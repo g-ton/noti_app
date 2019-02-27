@@ -3,7 +3,7 @@ $(document).ready(function () {
 		//token para acceder al controlador de YII
 		token=$("input[name='_csrf']").val();
 		$.ajax({
-			url    : url_base + 'cliente/obtener-municipios',
+			url    : url_base + 'suscriptor/obtener-municipios',
 			type   : "POST",
 			data   : {id_estado : $(this).val(), _csrf : token}, //Es enviada por default el tipo de codificación 1 (Compras)
 			dataType: "json",

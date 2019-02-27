@@ -3,22 +3,23 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Cliente;
-use app\models\ClienteSearch;
+use app\models\Suscriptor;
+use app\models\SuscriptorSearch;
 use app\models\CatEstados;
-use app\models\ClienteUsuario;
+use app\models\SuscriptorUsuario;
+use app\models\AuthAssignment;
+use app\models\SuscriptorImagen;
 use app\utilidades\Utilidades;
 use yii\web\Controller;
+use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
-use app\models\AuthAssignment;
 use yii\filters\AccessControl;
 
 /**
- * ClienteController implements the CRUD actions for Cliente model.
+ * SuscriptorController implements the CRUD actions for Suscriptor model.
  */
-class ClienteController extends Controller
+class SuscriptorController extends Controller
 {
     public function behaviors()
     {
@@ -55,12 +56,12 @@ class ClienteController extends Controller
     }
 
     /**
-     * Lists all Cliente models.
+     * Lists all Suscriptor models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ClienteSearch();
+        $searchModel = new SuscriptorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -70,7 +71,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Displays a single Cliente model.
+     * Displays a single Suscriptor model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -83,27 +84,62 @@ class ClienteController extends Controller
     }
 
     /**
-     * Creates a new Cliente model.
+     * Creates a new Suscriptor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Cliente();
-
+        $model = new Suscriptor();
+        #Registro de imágenes - start
+        /*if ($model->load(Yii::$app->request->post())){
+            $resultado_carga_img= [];
+            $model->imagenes = UploadedFile::getInstances($model, 'imagenes');
+            if(!empty($model->imagenes)){
+                foreach ($model->imagenes as $img) {
+                    if($img!= ''){
+                        $r= $img->saveAs(\Yii::getAlias('@webroot/img/img_suscriptor/') . $img->name);
+                        if($r){
+                            $resultado_carga_img[]= $r;
+                            error_log('Save in table');
+                        } else{
+                            error_log('Error in save');
+                            $resultado_carga_img[]= $r;
+                        }
+                    }
+                }
+            } else{
+                error_log('Error in instance');
+            }
+        }
+                    #Registro de imágenes - end
+        exit;*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model_cliente_usuario= new ClienteUsuario();
-            $model_cliente_usuario->username= 'admin';
-            $model_cliente_usuario->id_cliente= $model->id;
-            $model_cliente_usuario->password= sha1('123456'); #Aquí debo replicar el algoritmo que hice con la colorada
-            if($model_cliente_usuario->save()){
-                $model_auth_assignment              = new AuthAssignment();
-                $model_auth_assignment->item_name   = 'admin';
-                $model_auth_assignment->user_id     = (string) $model_cliente_usuario->id;
-                if ($model_auth_assignment->save()) {
-                    #De igual forma hay que replicar la utilidad de envío de correo que hizo la colorada
-                    error_log('Cliente y usuario registrado con exito');
-                    return $this->redirect(['view', 'id' => $model->id]);
+            $model_suscriptor_usuario= new SuscriptorUsuario();
+            $model_suscriptor_usuario->username= 'admin';
+            $model_suscriptor_usuario->id_suscriptor= $model->id;
+            $clave_auto= Utilidades::generarClave();
+            $model_suscriptor_usuario->password= $clave_auto;
+            $model_suscriptor_usuario->password_repeat= $model_suscriptor_usuario->password;
+            if($model_suscriptor_usuario->validate()){
+                $registro_sus_usuario= Utilidades::registroSuscriptorUsuario(1, $model_suscriptor_usuario, $clave_auto, 'admin');
+                if($registro_sus_usuario){
+                    $mensaje= 'El Suscriptor ha sido registrado con éxito!, favor de verificar su bandeja de correo electrónico para obtener sus credenciales de acceso al sistema.';
+                    $resultado= true;
+                    #Registro de imágenes - start
+                    if(!Utilidades::registrarImagen($model, 'imagenes')){
+                        $mensaje= 'El Suscriptor ha sido registrado con éxito, sin embargo una o más de las imágenes no pudo ser guardada, favor de verificar.';
+                        $resultado= false;
+                    }
+                    #Registro de imágenes - end
+                    
+                    if(!Utilidades::envioEmailNuevoSuscriptor($model->correo, $clave_auto, $model->razon_social)){
+                        $mensaje= 'El correo de activacion de Suscriptor no pudo ser enviado, favor de verificar y/o contactarnos para atenderle al respecto!.';
+                        $resultado= false;
+                    }
+
+                    Yii::$app->session->setFlash('mensaje_registro_suscriptor', $mensaje);
+                    return $this->redirect(['/login', 'resultado'=> $resultado]);
                 }
             }
         }
@@ -114,7 +150,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Updates an existing Cliente model.
+     * Updates an existing Suscriptor model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -134,7 +170,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Deletes an existing Cliente model.
+     * Deletes an existing Suscriptor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -155,15 +191,15 @@ class ClienteController extends Controller
     }
 
     /**
-     * Finds the Cliente model based on its primary key value.
+     * Finds the Suscriptor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Cliente the loaded model
+     * @return Suscriptor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cliente::findOne($id)) !== null) {
+        if (($model = Suscriptor::findOne($id)) !== null) {
             return $model;
         }
 

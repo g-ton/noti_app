@@ -3,26 +3,27 @@
 use yii\db\Migration;
 
 /**
- * Class m190113_192712_tabla_Cliente_Usuario
+ * Class m190113_192712_tabla_Suscriptor_Usuario
  */
-class m190113_192712_tabla_Cliente_Usuario extends Migration
+class m190113_192712_tabla_Suscriptor_Usuario extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-         $this->createTable('Cliente_Usuario', [
+         $this->createTable('Suscriptor_Usuario', [
            'id' =>  $this->primaryKey(),
-           'id_cliente' => $this->integer()->notNull(),
+           'id_suscriptor' => $this->integer()->notNull(),
            'username' => $this->string(250)->notNull(),
            'password' => $this->string(250)->notNull(),
+           'password_show' => $this->string(250),
            'ultimo_acceso' => $this->dateTime()->defaultValue(NULL),
            'estatus' => $this->tinyInteger(1)->defaultValue(1)->notNull()
        ]);
 
-        $this->createIndex('idx-id_cliente', 'Cliente_Usuario', 'id_cliente');
-        $this->addCommentOnColumn ( 'Cliente_Usuario', 'estatus', '1= Activo, 0= Eliminado ' );
+        $this->createIndex('idx-id_suscriptor', 'Suscriptor_Usuario', 'id_suscriptor');
+        $this->addCommentOnColumn ( 'Suscriptor_Usuario', 'estatus', '1= Activo, 0= Eliminado ' );
 
     }
 
@@ -31,7 +32,7 @@ class m190113_192712_tabla_Cliente_Usuario extends Migration
      */
     public function safeDown()
     {
-        echo "m190113_192712_tabla_Cliente_Usuario cannot be reverted.\n";
+        echo "m190113_192712_tabla_Suscriptor_Usuario cannot be reverted.\n";
 
         return false;
     }
@@ -45,7 +46,7 @@ class m190113_192712_tabla_Cliente_Usuario extends Migration
 
     public function down()
     {
-        echo "m190113_192712_tabla_Cliente_Usuario cannot be reverted.\n";
+        echo "m190113_192712_tabla_Suscriptor_Usuario cannot be reverted.\n";
 
         return false;
     }

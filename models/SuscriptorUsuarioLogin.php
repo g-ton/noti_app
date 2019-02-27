@@ -2,11 +2,11 @@
 
 namespace app\models;
 
-class ClienteUsuarioLogin extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+class SuscriptorUsuarioLogin extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    public function getCliente()
+    public function getSuscriptor()
     {
-        return $this->hasOne(Cliente::className(), ['id' => 'id_cliente']);
+        return $this->hasOne(Suscriptor::className(), ['id' => 'id_suscriptor']);
     }
 
     /**
@@ -19,7 +19,7 @@ class ClienteUsuarioLogin extends \yii\db\ActiveRecord implements \yii\web\Ident
 
     public static function tableName()
     {
-        return 'Cliente_Usuario';
+        return 'Suscriptor_Usuario';
     }
 
     /**

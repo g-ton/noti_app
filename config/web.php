@@ -28,7 +28,7 @@ $config = [
             'enableAutoLogin' => true,
         ],*/
         'user' => [
-            'identityClass' => 'app\models\ClienteUsuarioLogin',
+            'identityClass' => 'app\models\SuscriptorUsuarioLogin',
             'enableAutoLogin' => false,
             #Aquí se coloca el action por default para el login
             'loginUrl' => [ 'login/login' ],
@@ -76,6 +76,8 @@ $config = [
                ['class'=>'yii\rest\UrlRule', 'controller'=>'RestController']
            ],
        ],
+        #Librería que ayuda a la encriptación y desencriptación de una cadena
+        'encrypter' => require(__DIR__ . DIRECTORY_SEPARATOR . 'encrypter.php'), 
     ],//componentes
     'params' => $params,
 ];

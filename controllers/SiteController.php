@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\utilidades\Utilidades;
 
 class SiteController extends Controller
 {
@@ -59,6 +60,8 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+        Yii::$app->cache->flush();
+        #Utilidades::envioEmailNuevoContribuyente('bionik_gotik@hotmail.com', 'clave_yeah', 'Teta Comercial');
         return $this->render('about');
     }
 }

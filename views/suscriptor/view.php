@@ -4,14 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Cliente */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Suscriptores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="cliente-view">
+<div class="suscriptor-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Cliente */
+/* @var $model app\models\suscriptor */
 
-$this->title = 'Create Cliente';
+$this->title = 'Create Suscriptor';
 ?>
-<div class="cliente-create">
+<div class="suscriptor-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

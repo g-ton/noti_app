@@ -82,6 +82,13 @@ $this->registerJs('var url_base="'.Yii::$app->HomeUrl.'";', View::POS_HEAD);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Inicio', 'url' => ['/site/index']],
+                    [
+                        'label'     => 'Configuración', 
+                        #'visible'   => \Yii::$app->user->can('usarConfiguracion') ? true : false, 
+                        'items'     => [
+                            ['label' => 'Usuarios', 'url' => ['suscriptor-usuario/index']],
+                        ]
+                    ],
                     ['label' => 'About', 'url' => ['/site/about']],
                     Yii::$app->user->isGuest ? (
                         ['label' => 'Login', 'url' => ['/login/login']]

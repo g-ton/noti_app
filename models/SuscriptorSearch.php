@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Cliente;
+use app\models\Suscriptor;
 
 /**
- * ClienteSearch represents the model behind the search form of `app\models\Cliente`.
+ * SuscriptorSearch represents the model behind the search form of `app\models\Suscriptor`.
  */
-class ClienteSearch extends Cliente
+class SuscriptorSearch extends Suscriptor
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class ClienteSearch extends Cliente
      */
     public function search($params)
     {
-        $query = Cliente::find();
+        $query = Suscriptor::find();
 
         // add conditions that should always apply here
 
