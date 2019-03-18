@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\SuscriptorUsuario;
+use app\models\Suscriptor;
+use app\models\SuscriptorHorario;
 use app\models\SuscriptorUsuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

@@ -22,7 +22,7 @@ class m190227_031447_tabla_Suscriptor_Horario extends Migration
            'viernes' => $this->string(250),
            'sabado' => $this->string(250),
            'domingo' => $this->string(250),
-           'dias_festivos' => $this->string(250),
+           'labora_festivo' => $this->tinyInteger(1)->defaultValue(0)->notNull(),
        ]);
 
        #Nombre de índice, tabla a afectar, columna a relacionar

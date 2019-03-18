@@ -91,29 +91,6 @@ class SuscriptorController extends Controller
     public function actionCreate()
     {
         $model = new Suscriptor();
-        #Registro de imágenes - start
-        /*if ($model->load(Yii::$app->request->post())){
-            $resultado_carga_img= [];
-            $model->imagenes = UploadedFile::getInstances($model, 'imagenes');
-            if(!empty($model->imagenes)){
-                foreach ($model->imagenes as $img) {
-                    if($img!= ''){
-                        $r= $img->saveAs(\Yii::getAlias('@webroot/img/img_suscriptor/') . $img->name);
-                        if($r){
-                            $resultado_carga_img[]= $r;
-                            error_log('Save in table');
-                        } else{
-                            error_log('Error in save');
-                            $resultado_carga_img[]= $r;
-                        }
-                    }
-                }
-            } else{
-                error_log('Error in instance');
-            }
-        }
-                    #Registro de imágenes - end
-        exit;*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model_suscriptor_usuario= new SuscriptorUsuario();
             $model_suscriptor_usuario->username= 'admin';
@@ -132,6 +109,12 @@ class SuscriptorController extends Controller
                         $resultado= false;
                     }
                     #Registro de imágenes - end
+                    
+                    #Registro de horarios - start
+                    if(isset($_POST['labora_festivo'])){
+                        Utilidades::registrarHorario(null, $_POST, $model->id);
+                    }
+                    #Registro de horarios - end
                     
                     if(!Utilidades::envioEmailNuevoSuscriptor($model->correo, $clave_auto, $model->razon_social)){
                         $mensaje= 'El correo de activacion de Suscriptor no pudo ser enviado, favor de verificar y/o contactarnos para atenderle al respecto!.';

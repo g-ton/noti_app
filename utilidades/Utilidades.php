@@ -9,6 +9,7 @@ use app\models\CatClasificacionGiro;
 use app\models\CatEstados;
 use app\models\SuscriptorUsuario;
 use app\models\SuscriptorImagen;
+use app\models\SuscriptorHorario;
 use app\models\AuthAssignment;
 use yii\helpers\Url;
 
@@ -277,5 +278,65 @@ class Utilidades{
         }
         #Busca de errores en el guardado de loas imágenes - end
         return true;
+    }
+
+    public static function registrarHorario($id, $datos_horario, $id_suscriptor){
+        if(!$id){
+            $model_suscriptor_horario= new SuscriptorHorario();
+        } else{
+            #Hacer find $model_suscriptor_horario= new SuscriptorHorario();
+        }
+
+        $model_suscriptor_horario->id_suscriptor= $id_suscriptor;
+        if($datos_horario['des_lun_t_a']!= '' && $datos_horario['has_lun_t_a']!= ''){
+            $model_suscriptor_horario->lunes=  $datos_horario['des_lun_t_a'] .','. $datos_horario['has_lun_t_a'];
+        }
+        /*if($datos_horario['des_lun_t_b']!= '' && $datos_horario['has_lun_t_b']!= ''){
+            $model_suscriptor_horario->lunes.=  ','.$datos_horario['des_lun_t_b'] .','. $datos_horario['has_lun_t_b'];
+        }*/
+
+        if($datos_horario['des_mar_t_a']!= '' && $datos_horario['has_mar_t_a']!= ''){
+            $model_suscriptor_horario->martes=  $datos_horario['des_mar_t_a'] .','. $datos_horario['has_mar_t_a'];
+        }
+        /*if($datos_horario['des_mar_t_b']!= '' && $datos_horario['has_mar_t_b']!= ''){
+            $model_suscriptor_horario->martes.=  ','.$datos_horario['des_mar_t_b'] .','. $datos_horario['has_mar_t_b'];
+        }*/
+
+        if($datos_horario['des_mie_t_a']!= '' && $datos_horario['has_mie_t_a']!= ''){
+            $model_suscriptor_horario->miercoles=  $datos_horario['des_mie_t_a'] .','. $datos_horario['has_mie_t_a'];
+        }
+        /*if($datos_horario['des_mie_t_b']!= '' && $datos_horario['has_mie_t_b']!= ''){
+            $model_suscriptor_horario->miercoles.=  ','.$datos_horario['des_mie_t_b'] .','. $datos_horario['has_mie_t_b'];
+        }*/
+
+        if($datos_horario['des_jue_t_a']!= '' && $datos_horario['has_jue_t_a']!= ''){
+            $model_suscriptor_horario->jueves=  $datos_horario['des_jue_t_a'] .','. $datos_horario['has_jue_t_a'];
+        }
+        /*if($datos_horario['des_jue_t_b']!= '' && $datos_horario['has_jue_t_b']!= ''){
+            $model_suscriptor_horario->jueves.=  ','.$datos_horario['des_jue_t_b'] .','. $datos_horario['has_jue_t_b'];
+        }*/
+
+        if($datos_horario['des_vie_t_a']!= '' && $datos_horario['has_vie_t_a']!= ''){
+            $model_suscriptor_horario->viernes=  $datos_horario['des_vie_t_a'] .','. $datos_horario['has_vie_t_a'];
+        }
+        /*if($datos_horario['des_vie_t_b']!= '' && $datos_horario['has_vie_t_b']!= ''){
+            $model_suscriptor_horario->viernes.=  ','.$datos_horario['des_vie_t_b'] .','. $datos_horario['has_vie_t_b'];
+        }*/
+
+        if($datos_horario['des_sab_t_a']!= '' && $datos_horario['has_sab_t_a']!= ''){
+            $model_suscriptor_horario->sabado=  $datos_horario['des_sab_t_a'] .','. $datos_horario['has_sab_t_a'];
+        }
+        /*if($datos_horario['des_sab_t_b']!= '' && $datos_horario['has_sab_t_b']!= ''){
+            $model_suscriptor_horario->sabado.=  ','.$datos_horario['des_sab_t_b'] .','. $datos_horario['has_sab_t_b'];
+        }*/
+
+        if($datos_horario['des_dom_t_a']!= '' && $datos_horario['has_dom_t_a']!= ''){
+            $model_suscriptor_horario->domingo=  $datos_horario['des_dom_t_a'] .','. $datos_horario['has_dom_t_a'];
+        }
+        /*if($datos_horario['des_dom_t_b']!= '' && $datos_horario['has_dom_t_b']!= ''){
+            $model_suscriptor_horario->domingo.=  ','.$datos_horario['des_dom_t_b'] .','. $datos_horario['has_dom_t_b'];
+        }*/
+        $model_suscriptor_horario->labora_festivo=  $datos_horario['labora_festivo'];
+        $model_suscriptor_horario->save();
     }
 }

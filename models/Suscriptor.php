@@ -26,6 +26,7 @@ use Yii;
 class Suscriptor extends \yii\db\ActiveRecord
 {
     public $imagenes;
+
     /**
      * {@inheritdoc}
      */
