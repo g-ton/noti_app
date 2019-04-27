@@ -12,6 +12,7 @@ use app\models\SuscriptorImagen;
 use app\utilidades\Utilidades;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\widgets\ActiveForm;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -81,6 +82,23 @@ class SuscriptorController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionValidate()
+    {
+        $model = new Suscriptor();
+        #Validación para editar
+        /*if(isset($_GET['editar']) && isset($_GET['id'])){
+            $model = Cuenta::find()->where(['id'=> $_GET['id']])->one();
+        }*/
+
+        $request = \Yii::$app->getRequest();
+        if ($request->isPost && $model->load($request->post())) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            #Aquí llamar función para validar imágenes y procesar los errores con un addError
+            #Utilidades::validarImagen($model, 'imagenes');
+            return ActiveForm::validate($model);
+        }
     }
 
     /**

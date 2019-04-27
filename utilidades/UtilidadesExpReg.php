@@ -23,9 +23,19 @@ class UtilidadesExpReg
     
     #Carácteres numéricos del 1 al 9 separados por una coma (Símbolo), ej válido: 9,9,9,9 - ej inválido: 9a
     const CARACTERES_NUMERICO_SIMBOLO = '/^([1-9],?)+$/';
+
+    #Carácteres numéricos del 1 al 9
+    const CARACTERES_NUMERICO = '/^([0-9]?)+$/';
+
     #
     const UUID = '/[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$/';
     
     #Contraseña con mínimo de 8 caracteres, al menos una letra Minúscula, una letra Mayúscula, un Número y un Caracter especial
     const CLAVE = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])[\s\S]{8,250}$/';
+
+    #Dirección de Correo electrónico
+    const CORREO_ELECTRONICO = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+
+    #Caracteres númericos para formar hora en formato 24, ej (19:34)
+    const HORA_24 = '/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/';
 }

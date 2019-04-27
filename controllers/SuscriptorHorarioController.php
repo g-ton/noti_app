@@ -101,8 +101,54 @@ class SuscriptorHorarioController extends Controller
                 'has_sab_t_a'=> $model->has_sab_t_a,
                 'des_dom_t_a'=> $model->des_dom_t_a,
                 'has_dom_t_a'=> $model->has_dom_t_a,
+                #Turno 2
+                'des_lun_t_b'=> $model->des_lun_t_b,
+                'has_lun_t_b'=> $model->has_lun_t_b,
+                'des_mar_t_b'=> $model->des_mar_t_b,
+                'has_mar_t_b'=> $model->has_mar_t_b,
+                'des_mie_t_b'=> $model->des_mie_t_b,
+                'has_mie_t_b'=> $model->has_mie_t_b,
+                'des_jue_t_b'=> $model->des_jue_t_b,
+                'has_jue_t_b'=> $model->has_jue_t_b,
+                'des_vie_t_b'=> $model->des_vie_t_b,
+                'has_vie_t_b'=> $model->has_vie_t_b,
+                'des_sab_t_b'=> $model->des_sab_t_b,
+                'has_sab_t_b'=> $model->has_sab_t_b,
+                'des_dom_t_b'=> $model->des_dom_t_b,
+                'has_dom_t_b'=> $model->has_dom_t_b,
                 'labora_festivo'=> $model->labora_festivo
             ];
+        } elseif (isset($_POST['datos_horario'])) {
+            $model->des_lun_t_a = $_POST['datos_horario']['des_lun_t_a'];
+            $model->has_lun_t_a = $_POST['datos_horario']['has_lun_t_a'];
+            $model->des_mar_t_a = $_POST['datos_horario']['des_mar_t_a'];
+            $model->has_mar_t_a = $_POST['datos_horario']['has_mar_t_a'];
+            $model->des_mie_t_a = $_POST['datos_horario']['des_mie_t_a'];
+            $model->has_mie_t_a = $_POST['datos_horario']['has_mie_t_a'];
+            $model->des_jue_t_a = $_POST['datos_horario']['des_jue_t_a'];
+            $model->has_jue_t_a = $_POST['datos_horario']['has_jue_t_a'];
+            $model->des_vie_t_a = $_POST['datos_horario']['des_vie_t_a'];
+            $model->has_vie_t_a = $_POST['datos_horario']['has_vie_t_a'];
+            $model->des_sab_t_a = $_POST['datos_horario']['des_sab_t_a'];
+            $model->has_sab_t_a = $_POST['datos_horario']['has_sab_t_a'];
+            $model->des_dom_t_a = $_POST['datos_horario']['des_dom_t_a'];
+            $model->has_dom_t_a = $_POST['datos_horario']['has_dom_t_a'];
+            #Turno 2
+            $model->des_lun_t_b = $_POST['datos_horario']['des_lun_t_b'];
+            $model->has_lun_t_b = $_POST['datos_horario']['has_lun_t_b'];
+            $model->des_mar_t_b = $_POST['datos_horario']['des_mar_t_b'];
+            $model->has_mar_t_b = $_POST['datos_horario']['has_mar_t_b'];
+            $model->des_mie_t_b = $_POST['datos_horario']['des_mie_t_b'];
+            $model->has_mie_t_b = $_POST['datos_horario']['has_mie_t_b'];
+            $model->des_jue_t_b = $_POST['datos_horario']['des_jue_t_b'];
+            $model->has_jue_t_b = $_POST['datos_horario']['has_jue_t_b'];
+            $model->des_vie_t_b = $_POST['datos_horario']['des_vie_t_b'];
+            $model->has_vie_t_b = $_POST['datos_horario']['has_vie_t_b'];
+            $model->des_sab_t_b = $_POST['datos_horario']['des_sab_t_b'];
+            $model->has_sab_t_b = $_POST['datos_horario']['has_sab_t_b'];
+            $model->des_dom_t_b = $_POST['datos_horario']['des_dom_t_b'];
+            $model->has_dom_t_b = $_POST['datos_horario']['has_dom_t_b'];
+            $model->labora_festivo = $_POST['datos_horario']['labora_festivo'];
         }
 
         return $this->renderAjax('create', [

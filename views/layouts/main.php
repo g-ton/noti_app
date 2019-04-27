@@ -105,6 +105,16 @@ $this->registerJs('var url_base="'.Yii::$app->HomeUrl.'";', View::POS_HEAD);
                 ],
             ]);
             NavBar::end();
+        } elseif($this->context->id == 'suscriptor' && $this->context->action->id == 'create'){
+            #Sólo cuando se trata del registro es mostrado el navbar sin opciones
+            NavBar::begin([
+                'brandLabel' => Yii::$app->name,
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-inverse navbar-fixed-top',
+                ],
+            ]);
+            NavBar::end();
         }
     }
     ?>

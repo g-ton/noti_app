@@ -12,9 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suscriptor-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h2><?= Html::encode($this->title) ?></h2>
     <p>
         <?= Html::a('Create suscriptor', ['create'], ['class' => 'btn btn-success']) ?>
     </p>

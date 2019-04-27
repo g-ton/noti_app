@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\utilidades\UtilidadesExpReg;
 
 /**
  * This is the model class for table "Suscriptor".
@@ -45,8 +46,11 @@ class Suscriptor extends \yii\db\ActiveRecord
             [['razon_social', 'id_giro', 'id_pais', 'id_estado', 'id_municipio', 'calle_colonia', 'codigo_postal', 'celular', 'telefono', 'correo'], 'required'],
             [['id_giro', 'id_pais', 'id_estado', 'id_municipio', 'estatus', 'bloqueado'], 'integer'],
             [['razon_social', 'rfc', 'calle_colonia', 'correo', 'cedula_profesional'], 'string', 'max' => 250],
-            [['codigo_postal'], 'string', 'max' => 7],
-            [['celular', 'telefono'], 'string', 'max' => 12],
+            [['celular', 'telefono'], 'string', 'max' => 14],
+            ['codigo_postal', 'string', 'max' => 7],
+            ['rfc', 'match', 'pattern' => UtilidadesExpReg::RFC, 'message'=>'El campo {attribute} es inválido.'],
+            ['codigo_postal', 'match', 'pattern' => UtilidadesExpReg::CARACTERES_NUMERICO, 'message'=>'El campo {attribute} es inválido, sólo son aceptados dígitos.'],
+            ['correo', 'match', 'pattern' => UtilidadesExpReg::CORREO_ELECTRONICO, 'message'=>'El campo {attribute} es inválido.']
         ];
     }
 
@@ -58,7 +62,7 @@ class Suscriptor extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'razon_social' => 'Razón Social ó Nombre Comercial',
-            'rfc' => 'Rfc',
+            'rfc' => 'RFC',
             'id_giro' => 'Giro',
             'id_pais' => 'País',
             'id_estado' => 'Estado',

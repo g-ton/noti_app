@@ -28,7 +28,7 @@ $session = Yii::$app->session;
 <div class="background error-page-wrapper">
   <center>
     <div class="content-container shadow">
-        <h1 align="center"><img src="img/notiapp_logo_mini.png" class="img-responsive"></h1>
+        <h1 align="center"><img src="img/notiapp_logo_mini.png" class="img-responsive" title="NotiApp le permite, estar cada vez más cerca de sus clientes, notificándolos en tiempo real de sucesos importantes, agenda de citas, historial crediticio y de consumo, así como también la gestión del perfil de empresa, gestión de productos y servicios, y mucho más!"></h1>
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'layout' => 'horizontal',
